@@ -37,4 +37,23 @@ class StationRepositoryTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void update() {
+        Station expected = new Station();
+        expected.setName("잠실역");
+        stations.save(expected);
+
+        expected.setName("삼성역");
+        System.out.println("???");
+
+        // DB 커넥션 없이 영속성 컨텍스트에서 바로 들고 온다 => 이름 바뀐 채로 온다. => update쿼리는 안날라가 있다.
+        Station findById = stations.findById(expected.getId()).get();
+        Station findByName = stations.findByName("삼성역"); // update 쿼리가 flush되는 시점
+
+        assertAll(
+            () -> assertThat(findById).isEqualTo(expected),
+            () -> assertThat(findByName).isEqualTo(expected)
+        );
+    }
 }
