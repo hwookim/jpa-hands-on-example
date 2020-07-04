@@ -13,6 +13,9 @@ class StationRepositoryTest {
     @Autowired
     StationRepository stations;
 
+    @Autowired
+    LineRepository lines;
+
     @Test
     void save() {
         Station expected = new Station("잠실역");
@@ -57,7 +60,7 @@ class StationRepositoryTest {
     @Test
     void saveWithLine() {
         Station expected = new Station("잠실역");
-        Line line = new Line("2호선");
+        Line line = lines.save(new Line("2호선"));
         expected.setLine(line);
         Station actual = stations.save(expected);
 
