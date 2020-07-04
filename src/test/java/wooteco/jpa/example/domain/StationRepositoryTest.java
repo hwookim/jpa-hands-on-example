@@ -15,8 +15,7 @@ class StationRepositoryTest {
 
     @Test
     void save() {
-        Station expected = new Station();
-        expected.setName("잠실역");
+        Station expected = new Station("잠실역");
 
         Station actual = stations.save(expected);
 
@@ -29,8 +28,7 @@ class StationRepositoryTest {
 
     @Test
     void findByName() {
-        Station expected = new Station();
-        expected.setName("잠실역");
+        Station expected = new Station("잠실역");
         stations.save(expected);
 
         Station actual = stations.findByName("잠실역");
@@ -40,8 +38,7 @@ class StationRepositoryTest {
 
     @Test
     void update() {
-        Station expected = new Station();
-        expected.setName("잠실역");
+        Station expected = new Station("잠실역");
         stations.save(expected);
 
         expected.setName("삼성역");
@@ -54,6 +51,19 @@ class StationRepositoryTest {
         assertAll(
             () -> assertThat(findById).isEqualTo(expected),
             () -> assertThat(findByName).isEqualTo(expected)
+        );
+    }
+
+    @Test
+    void saveWithLine() {
+        Station expected = new Station("잠실역");
+        Line line = new Line("2호선");
+        expected.setLine(line);
+        Station actual = stations.save(expected);
+
+        assertAll(
+            () -> assertThat(actual).isEqualTo(expected),
+            () -> assertThat(actual.getLine()).isEqualTo(line)
         );
     }
 }
