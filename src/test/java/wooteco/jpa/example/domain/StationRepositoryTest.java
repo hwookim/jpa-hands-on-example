@@ -69,4 +69,13 @@ class StationRepositoryTest {
             () -> assertThat(actual.getLine()).isEqualTo(line)
         );
     }
+
+    @Test
+    void findByNameWithLine() {
+        Station expected = stations.save(new Station("잠실역"));
+        expected.setLine(lines.save(new Line("2호선")));
+
+        Station actual = stations.findByName("잠실역");
+        assertThat(actual.getLine()).isNotNull();
+    }
 }
