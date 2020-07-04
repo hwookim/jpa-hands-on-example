@@ -72,10 +72,22 @@ class StationRepositoryTest {
 
     @Test
     void findByNameWithLine() {
-        Station expected = stations.save(new Station("잠실역"));
-        expected.setLine(lines.save(new Line("2호선")));
+        Station station = new Station("잠실역");
+        station.setLine(lines.save(new Line("2호선")));
+        stations.save(station);
 
         Station actual = stations.findByName("잠실역");
         assertThat(actual.getLine()).isNotNull();
+    }
+
+    @Test
+    void updateWithLine() {
+        Station station = new Station("잠실역");
+        station.setLine(lines.save(new Line("2호선")));
+        stations.save(station);
+        station.setLine(lines.save(new Line("8호선")));
+
+        Station actual = stations.findByName("잠실역");
+        assertThat(actual.getLine().getName()).isEqualTo("8호선");
     }
 }
