@@ -1,10 +1,12 @@
 package wooteco.jpa.example.domain;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +21,9 @@ public class Line {
 
     @Column(nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "line")
+    private List<Station> stations;
 
     protected Line() {
     }
