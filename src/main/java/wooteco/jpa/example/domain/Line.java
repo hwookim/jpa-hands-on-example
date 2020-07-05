@@ -1,5 +1,6 @@
 package wooteco.jpa.example.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,12 +24,16 @@ public class Line {
     private String name;
 
     @OneToMany(mappedBy = "line")
-    private List<Station> stations;
+    private List<Station> stations = new ArrayList<>();
 
     protected Line() {
     }
 
     public Line(String name) {
         this.name = name;
+    }
+
+    public void addStation(Station station) {
+        station.setLine(this);
     }
 }

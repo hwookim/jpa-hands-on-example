@@ -32,4 +32,9 @@ public class Station {
     public Station(String name) {
         this.name = name;
     }
+
+    public void setLine(Line line) {
+        this.line = line;
+        line.getStations().add(this);
+    }
 }
